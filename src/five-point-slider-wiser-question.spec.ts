@@ -8,4 +8,10 @@ describe('FivePointSliderWiserQuestion', () => {
   describe("toString()", () => {
     it("should...");
   });
+  describe("registerAnswerScoreWithAnswer()", () => {
+    it("should...");
+  });
+  describe("testAnswerOrFail()", () => {
+    it("should...");
+  });
 });
