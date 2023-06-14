@@ -3,7 +3,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: './src/index.ts',
   output: {
-    filename: process.env.npm_package_main.split('/').reverse()[0],
+    filename: "wiserquestions",
     libraryTarget: 'this'
   },
   target: 'node',
@@ -11,7 +11,14 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: ['ts-loader']
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
       }
     ]
   },
@@ -21,8 +28,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
   },
-  stats: {
-    warningsFilter: /^(?!CriticalDependenciesWarning$)/
-  }
+  ignoreWarnings: [
+    {
+      module: /^(?!CriticalDependenciesWarning$)/
+    }
+  ]
 };
-
