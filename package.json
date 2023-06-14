@@ -18,6 +18,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "csvtojson": "^2.0.10",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^5.4.3",
     "tsnode-di": "0.0.3"
