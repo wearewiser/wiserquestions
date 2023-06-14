@@ -1,4 +1,4 @@
-# skyquestions
+# Wiser Questions
 
 Generated with `npm init nodets@0.0.0`.
 
