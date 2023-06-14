@@ -1,11 +1,5 @@
-describe('WiserQuestion', () => {
+describe('WiserQuestionFactory', () => {
   describe("getInstance()", () => {
-    it("should...");
-  });
-  describe("returnWiserQuestionText()", () => {
-    it("should...");
-  });
-  describe("setAnswerScore()", () => {
     it("should...");
   });
 });
