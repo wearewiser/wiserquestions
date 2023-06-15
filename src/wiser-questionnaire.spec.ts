@@ -4,6 +4,7 @@ import { WiserQuestionLoader } from "./wiser-question-loader";
 import { WiserQuestionTypes } from "./wiser-question-types";
 import { WiserQuestionnaire } from "./wiser-questionnaire";
 import { WiserQuestionFactory } from "./wiser-question-factory";
+import { WiserQuestion } from "./wiser-question";
 
 class TestWiserQuestionLoader extends WiserQuestionLoader {
   private rows: NormalizedWiserQuestionForm[];
@@ -240,6 +241,44 @@ describe('WiserQuestionnaire', () => {
         { toString },
       ]) as any;
       questionnaire.toString();
+    });
+  });
+  describe("calculateScore()", () => {
+    it("should calculate the score", async () => {
+      let q: WiserQuestion<unknown>;
+      await questionnaire.init();
+      q = questionnaire.readNextWiserQuestion() as WiserQuestion<unknown>;
+      q.selectAnswer(q.readAnswers()[0]);
+      q = questionnaire.readNextWiserQuestion() as WiserQuestion<unknown>;
+      q.selectAnswer(q.readAnswers()[0]);
+      expect(questionnaire.calculateScore()).to.deep.equal([
+        {
+          label: "Score One",
+          value: 200,
+        },
+        {
+          label: "Score Two",
+          value: -200,
+        },
+      ]);
+    });
+    it("should sort highest to lowest score", async () => {
+      let q: WiserQuestion<unknown>;
+      await questionnaire.init();
+      q = questionnaire.readNextWiserQuestion() as WiserQuestion<unknown>;
+      q.selectAnswer(q.readAnswers()[1]);
+      q = questionnaire.readNextWiserQuestion() as WiserQuestion<unknown>;
+      q.selectAnswer(q.readAnswers()[1]);
+      expect(questionnaire.calculateScore()).to.deep.equal([
+        {
+          label: "Score Two",
+          value: 100,
+        },
+        {
+          label: "Score One",
+          value: -100,
+        },
+      ]);
     });
   });
 });
