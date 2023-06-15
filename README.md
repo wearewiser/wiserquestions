@@ -2,6 +2,23 @@
 
 Generated with `npm init nodets@0.0.0`.
 
+## Usage
+
+Loaders build with [csvtojson](https://www.npmjs.com/package/csvtojson), using default structuring, should be fed with CSV files that contain the following structure:
+
+```csv
+Question,Type,Answer Labels,Answers,Category 1, Category 2
+Question 1,Multiple choice,Yes,Yes,0,1
+Question 1,Multiple choice,Yes,Yes,1,-1
+Question 2,5-points slider,Strongly Disagree,1,5,0
+Question 2,5-points slider,,2,4,1
+Question 2,5-points slider,,3,3,2
+Question 2,5-points slider,,4,2,3
+Question 2,5-points slider,Strongly Agree,5,1,5
+```
+> **Note**
+>
+> Available _Type_ values are "Multiple choice" and "5-points slider"
 ## Scripts
 
 ### npm start
