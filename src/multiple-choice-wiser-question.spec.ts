@@ -21,6 +21,37 @@ describe('MultipleChoiceWiserQuestion', () => {
       expect(question['answer']).to.equal(answer);
     });
   });
+  describe("setAnswers()", () => {
+    const question_rows = [
+      {
+        "Answer Labels": "Answer Label 1",
+        "Answers": "Answer 1",
+      },
+      {
+        "Answer Labels": "Answer Label 2",
+        "Answers": "Answer 2",
+      },
+      {
+        "Answer Labels": "Answer Label 3",
+        "Answers": "Answer 3",
+      },
+      {
+        "Answer Labels": "Answer Label 4",
+        "Answers": "Answer 4",
+      },
+      {
+        "Answer Labels": "Answer Label 5",
+        "Answers": "Answer 5",
+      },
+    ];
+    beforeEach(() => {
+      question = new MultipleChoiceWiserQuestion("");
+      question_rows.forEach(row => question.setAnswers(row.Answers));
+    });
+    question_rows.forEach((row, index) => it(`should set answer at index ${index} to value "${row['Answers']}"`, () => {
+      expect(question['answers'][index]).to.equal(row['Answers']);
+    }));
+  });
   describe("setAnswerLabels()", () => {
     const question_rows = [
       {

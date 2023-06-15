@@ -5,7 +5,7 @@ import { WiserQuestion } from "./wiser-question";
 import { WiserQuestionTypes } from "./wiser-question-types";
 
 export class WiserQuestionFactory {
-  public static getInstance(row: NormalizedWiserQuestionForm): WiserQuestion | never {
+  public static getInstance(row: NormalizedWiserQuestionForm): WiserQuestion<unknown> | never {
     switch (row.Type) {
       case WiserQuestionTypes.MULTIPLE_CHOICE:
         return new MultipleChoiceWiserQuestion(row.WiserQuestion);

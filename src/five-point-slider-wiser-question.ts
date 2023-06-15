@@ -2,9 +2,7 @@ import { EOL } from "os";
 import { NormalizedWiserQuestionAnswer } from "./models";
 import { WiserQuestion } from "./wiser-question";
 
-export class FivePointSliderWiserQuestion extends WiserQuestion {
-  protected answer: number;
-  protected answer_scores: Map<number, Map<string, number>>;
+export class FivePointSliderWiserQuestion extends WiserQuestion<number> {
   constructor(question_text: string) {
     super(question_text);
     this.answer = -1;
@@ -13,6 +11,9 @@ export class FivePointSliderWiserQuestion extends WiserQuestion {
   public selectAnswer(answer: number | string): void {
     this.testAnswerOrFail(answer as number);
     this.answer = answer as number;
+  }
+  public setAnswers(answer: string | number): void {
+    this.answers.push(Number(answer));
   }
   public setAnswerLabels(row: NormalizedWiserQuestionAnswer): void {
     if (row.Answers === "1") {

@@ -22,6 +22,37 @@ describe('FivePointSliderWiserQuestion', () => {
       expect(question['answer']).to.equal(answer);
     });
   });
+  describe("setAnswers()", () => {
+    const question_rows = [
+      {
+        "Answer Labels": "Answer Label 1",
+        "Answers": "1",
+      },
+      {
+        "Answer Labels": "",
+        "Answers": "2",
+      },
+      {
+        "Answer Labels": "",
+        "Answers": "3",
+      },
+      {
+        "Answer Labels": "4",
+        "Answers": "4",
+      },
+      {
+        "Answer Labels": "Answer Label 5",
+        "Answers": "5",
+      },
+    ];
+    beforeEach(() => {
+      question = new FivePointSliderWiserQuestion("");
+      question_rows.forEach(row => question.setAnswers(row.Answers));
+    });
+    question_rows.forEach((row, index) => it(`should set answer at index ${index} to value ${row['Answers']}`, () => {
+      expect(question['answers'][index]).to.equal(Number(row['Answers']));
+    }));
+  });
   describe("setAnswerLabels()", () => {
     it("should set first tuple entry if Answer is 1", () => {
       const row: NormalizedWiserQuestionAnswer = {

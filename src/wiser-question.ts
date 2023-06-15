@@ -1,14 +1,45 @@
-import { NormalizedWiserQuestionAnswer, NormalizedWiserQuestionAnswerScore, NormalizedWiserQuestionScore } from "./models";
+import { NormalizedWiserQuestionAnswer, NormalizedWiserQuestionAnswerScore, NormalizedWiserQuestionScore, WiserScore } from "./models";
 
-export abstract class WiserQuestion {
+export abstract class WiserQuestion<T> {
+  protected answer: T | undefined;
   protected question_text: string;
+  protected answers: T[];
   protected answer_labels: [string, string] | string[];
+  protected answer_scores!: Map<T, Map<string, number>>;
   constructor(question_text: string) {
     this.question_text = question_text;
     this.answer_labels = [];
+    this.answers = [];
   }
-  public returnWiserQuestionText(): string {
+  public readQuestionText(): string {
     return this.question_text;
+  }
+  public readAnswers(): T[] {
+    return this.answers;
+  }
+  public readSelectedAnswer(): T | undefined {
+    return this.answer;
+  }
+  public calculateScore(): WiserScore[] {
+    if (!this.answer || !this.answer_scores || this.answer_scores.size < 1) {
+      return [];
+    }
+    const scores = this.answer_scores.get(this.answer);
+    if (!scores) {
+      return [];
+    }
+    return Array.from(scores.keys()).map(key => ({
+      label: key,
+      value: scores.get(key) as number,
+    }));
+  }
+  public readSelectedAnswerLabel(): string | undefined {
+    const answer: T | undefined = this.readSelectedAnswer();
+    if (!answer) {
+      return undefined;
+    }
+    const index = this.answers.findIndex(x => x === answer);
+    return this.answer_labels[index];
   }
   public toString(): string {
     let str = "";
@@ -27,9 +58,8 @@ export abstract class WiserQuestion {
     Object.keys(score_labels).forEach(label => scores.set(label, Number(row[label])));
     this.registerAnswerScoreWithAnswer(row, scores);
   }
-  public abstract selectAnswer(answer: number): void;
-  public abstract selectAnswer(answer: string): void;
-  public abstract selectAnswer(answer: string | number): void;
+  public abstract setAnswers(answer: string | T): void;
+  public abstract selectAnswer(answer: T): void;
   public abstract setAnswerLabels(row: NormalizedWiserQuestionAnswer): void;
   protected abstract registerAnswerScoreWithAnswer(row: NormalizedWiserQuestionAnswer, scores: Map<string, number>): void;
 }
