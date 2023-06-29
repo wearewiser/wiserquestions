@@ -1,0 +1,14 @@
+/node_modules/
+/.nyc_output/
+/docs/
+/coverage/
+/src/
+/tslint.json
+/tsconfig.json
+/.npmrc
+/.travis.yml
+/*.tgz
+!/lib/
+!/README.md
+!/LICENSE.md
+!/package.json
