@@ -23,6 +23,12 @@ export class FivePointSliderWiserQuestion extends WiserQuestion<number> {
       this.answer_labels[1] = row["Answer Labels"];
     }
   }
+  public getMinLabel(): string {
+    return this.answer_labels[0];
+  }
+  public getMaxLabel(): string {
+    return this.answer_labels[1];
+  }
   public toString(): string {
     let str = super.toString();
     str += EOL;
