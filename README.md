@@ -25,7 +25,7 @@ Question 2,5-points slider,Strongly Agree,5,1,5
 Builds the script and runs it. Watches the project directory for changes, and reruns the script when file changes are detected.
 
 ### npm run build
-Builds the project and outputs it to the `./dist/` directory. Bundled with webpack and outputs a single executable.
+Builds the project and outputs it to the `./lib/` directory. Bundled with webpack and outputs a single executable.
 
 ### npm run lint
 Runs the linter.
@@ -40,7 +40,7 @@ Runs the unit tests with watchers on the directory. Reruns when file changes are
 Generates a coverage report.
 
 ### npm run tsc
-Builds the project and outputs it to the `./dist/` directory. Compiled with TypeScript and outputs JavaScript files.
+Builds the project and outputs it to the `./lib/` directory. Compiled with TypeScript and outputs JavaScript files.
 
 ### npm run clean
 Cleans the project directory of all compilation artifacts.
