@@ -8,9 +8,9 @@ export class WiserQuestionFactory {
   public static getInstance(row: NormalizedWiserQuestionForm): WiserQuestion<unknown> | never {
     switch (row.Type) {
       case WiserQuestionTypes.MULTIPLE_CHOICE:
-        return new MultipleChoiceWiserQuestion(row.WiserQuestion);
+        return new MultipleChoiceWiserQuestion(row.Question);
       case WiserQuestionTypes.FIVE_POINT_SLIDER:
-        return new FivePointSliderWiserQuestion(row.WiserQuestion);
+        return new FivePointSliderWiserQuestion(row.Question);
       default:
         throw new Error(`Unknown question type ${row.Type}`);
     }
