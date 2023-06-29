@@ -189,9 +189,11 @@ describe('WiserQuestionnaire', () => {
     });
   });
   describe("readNextWiserQuestion()", () => {
-    it("should call readWiserQuestionAtIndex with next index", (done) => {
-      questionnaire.readWiserQuestionAtIndex = ((index: number) => {
-        expect(index).to.equal(questionnaire['question_index'] + 1);
+    it("should call readCurrentWiserQuestion after setting next index if enough elements", (done) => {
+      questionnaire['question_index'] = 1;
+      questionnaire.readSize = () => 3;
+      questionnaire.readCurrentWiserQuestion = (() => {
+        expect(questionnaire['question_index']).to.equal(2);
         done();
       }) as any;
       (async () => {
@@ -199,16 +201,34 @@ describe('WiserQuestionnaire', () => {
         questionnaire.readNextWiserQuestion();
       })();
     });
+    it("should return undefined if index is at limit", (done) => {
+      questionnaire['question_index'] = 1;
+      questionnaire.readSize = () => 2;
+      (async () => {
+        await questionnaire.init();
+        expect(questionnaire.readNextWiserQuestion()).to.be.undefined;
+        done();
+      })();
+    });
   });
   describe("readPrevWiserQuestion()", () => {
-    it("should call readWiserQuestionAtIndex with prev index", (done) => {
-      questionnaire.readWiserQuestionAtIndex = ((index: number) => {
-        expect(index).to.equal(questionnaire['question_index'] - 1);
+    it("should call readCurrentWiserQuestion with prev index if not zero", (done) => {
+      questionnaire['question_index'] = 1;
+      questionnaire.readCurrentWiserQuestion = (() => {
+        expect(questionnaire['question_index']).to.equal(0);
         done();
       }) as any;
       (async () => {
         await questionnaire.init();
         questionnaire.readPrevWiserQuestion();
+      })();
+    });
+    it("should return undefiend if index is at zero", (done) => {
+      questionnaire['question_index'] = 0;
+      (async () => {
+        await questionnaire.init();
+        expect(questionnaire.readPrevWiserQuestion()).to.be.undefined;
+        done();
       })();
     });
   });

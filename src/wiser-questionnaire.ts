@@ -57,22 +57,22 @@ export class WiserQuestionnaire {
     return question;
   }
   public readCurrentWiserQuestion(): WiserQuestion<unknown> | undefined {
-    const question = this.readWiserQuestionAtIndex(this.question_index);
+    const question = this.readWiserQuestionAtIndex(this.readIndex());
     return question;
   }
   public readNextWiserQuestion(): WiserQuestion<unknown> | undefined {
-    const question = this.readWiserQuestionAtIndex(this.question_index + 1);
-    if (question) {
+    if (this.readIndex() < this.readSize() - 1) {
       this.question_index++;
+      return this.readCurrentWiserQuestion();
     }
-    return question;
+    return undefined;
   }
   public readPrevWiserQuestion(): WiserQuestion<unknown> | undefined {
-    const question = this.readWiserQuestionAtIndex(this.question_index -1);
-    if (question) {
+    if (this.readIndex() > 0) {
       this.question_index--;
+      return this.readCurrentWiserQuestion();
     }
-    return question;
+    return undefined;
   }
   public readSize(): number {
     return this.question_set.size;
